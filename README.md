@@ -23,6 +23,7 @@ Wdrożenie aplikacji na platformie Azure
 ![6](https://user-images.githubusercontent.com/48619944/116135921-fb559e00-a6d1-11eb-8999-0a2a219b0e0e.png)
 
 #########################################################################
+
 Post /v1/user
 ![7](https://user-images.githubusercontent.com/48619944/116135923-fc86cb00-a6d1-11eb-9dae-0cc5a9ca4cd1.png)
 
