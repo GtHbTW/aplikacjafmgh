@@ -8,7 +8,7 @@ Wdrożenie aplikacji na platformie Azure
 3. Deployujemy aplikacje przez Github Actions 
 ![3](https://user-images.githubusercontent.com/48619944/116135905-f7c21700-a6d1-11eb-810d-0b0b52d0e4d8.png)
 
-4. W AppService Azura w Konfiguracji dodajemy 2 ustaiwenia aplikacji NODE_CONFIG z wartością { "feedmail": { "db": { "url": "##DB CONNECTION##", "name": "prod", "options": { "useUnifiedTopology": true } }, "logger": { "level": "debug", "filename": "./backend.log" }, "mailgun": { "domain": "##MAIL DOMAIN#", "apiKey": "##MAILGUN API KEY##" } } }
+4. W AppService Azura w Konfiguracji dodajemy 2 ustawienia zmiennej NODE_CONFIG z wartością { "feedmail": { "db": { "url": "##DB CONNECTION##", "name": "prod", "options": { "useUnifiedTopology": true } }, "logger": { "level": "debug", "filename": "./backend.log" }, "mailgun": { "domain": "##MAIL DOMAIN#", "apiKey": "##MAILGUN API KEY##" } } }
 oraz NODE_ENV z wartością production 
 ![4](https://user-images.githubusercontent.com/48619944/116135909-f7c21700-a6d1-11eb-8197-4459e9e5e315.png)
 ![5](https://user-images.githubusercontent.com/48619944/116135914-f98bda80-a6d1-11eb-907a-48ecaec1cb87.png)
