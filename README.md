@@ -1,56 +1,33 @@
-# Feedmail
+Wdrożenie aplikacji na platformie Azure
 
-WebApp wrote in node js and vanilla js for sending rss via email
+1. Zmieniamy plik konfiguracyjny deploymentu app-name: '##appname##' slot-name: 'production' publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} package: .
 
-## Installation
+2. Dodajemy nowy secret o nazwie AZURE_WEBAPP_PUBLISH_PROFILE, jako wartość dodajemy pobrane informacje z Azure publish Profile 1
+![2](https://user-images.githubusercontent.com/48619944/116135901-f690ea00-a6d1-11eb-85cb-9d3fc0f7058e.png)
 
-Run npm installation command in the project root folder
+3. Deployujemy aplikacje przez Github Actions 
+![3](https://user-images.githubusercontent.com/48619944/116135905-f7c21700-a6d1-11eb-810d-0b0b52d0e4d8.png)
 
-```bash
-npm i
-```
+4. W AppService Azura w Konfiguracji dodajemy 2 ustaiwenia aplikacji NODE_CONFIG z wartością { "feedmail": { "db": { "url": "##DB CONNECTION##", "name": "prod", "options": { "useUnifiedTopology": true } }, "logger": { "level": "debug", "filename": "./backend.log" }, "mailgun": { "domain": "##MAIL DOMAIN#", "apiKey": "##MAILGUN API KEY##" } } }
+oraz NODE_ENV z wartością production 
+![4](https://user-images.githubusercontent.com/48619944/116135909-f7c21700-a6d1-11eb-8197-4459e9e5e315.png)
+![5](https://user-images.githubusercontent.com/48619944/116135914-f98bda80-a6d1-11eb-907a-48ecaec1cb87.png)
 
-## Run on the local machine
+5. Tworzymy bazę danych CosmoDB oraz uzupełniamy connection string 
+![5 1](https://user-images.githubusercontent.com/48619944/116136138-38219500-a6d2-11eb-9008-40625051edde.png)
 
-To run on the local machine enter command in the project root folder
+6. Po wdrożeniu i konfiguracji aplikacja wysyła requestowane maile
+![6](https://user-images.githubusercontent.com/48619944/116135921-fb559e00-a6d1-11eb-8999-0a2a219b0e0e.png)
 
-```bash
-npm run start:dev
-```
+#########################################################################
+Post /v1/user
+![7](https://user-images.githubusercontent.com/48619944/116135923-fc86cb00-a6d1-11eb-9dae-0cc5a9ca4cd1.png)
 
-## Run on Azure
-1. Create AppService and configure deployment using Github actions.
-2. Create CosmosDb with mongo client API in version 3.x
-3. Wait until provisioning of the services will finish
-4. Enter in AppService go to Configuration.
-5. You should be seeing *Application settings* and *Connection strings* sections
-6. Add two environment variables in section *Application settings*
-- NODE_ENV with value production
-- NODE_CONFIG with value
+Get /v1/user 
+![8](https://user-images.githubusercontent.com/48619944/116135926-fdb7f800-a6d1-11eb-913f-74bdc450e361.png)
 
-      {
-          "feedmail": {
-              "db": {
-                  "url": "", 
-                  "name": "prod", 
-                  "options": {
-                  "useUnifiedTopology": true 
-                  }
-              },
-              "logger": {
-                  "level": "debug",
-                  "filename": "./backend.log"
-              },
-              "mailgun": {
-                  "domain": "",
-                  "apiKey": ""
-              }  
-          }
-      }
+Get /v1/mail 
+![9](https://user-images.githubusercontent.com/48619944/116135931-fee92500-a6d1-11eb-89d1-c9eae9a0fbbf.png)
 
-**Remark**
-
-Notice there are empty fields in this config:
-- url - you need to copy-paste the connection string of the newly created CosmosDb. The connection string is visible in the Configuration section in the CosmosDb,
-- apiKey - you need to create an account in mailgun portal. You will get an API key after login into mailgun portal,
-- domain - if you don't have a domain you can use the sandbox domain created on mailgun web page. For more info go see mailgun documentation page.
+Post /v1/mail 
+![10](https://user-images.githubusercontent.com/48619944/116135937-ff81bb80-a6d1-11eb-91a3-89aee4e9dea4.png)
